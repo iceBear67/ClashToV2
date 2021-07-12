@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>Sub Conv</title>
+    </head>
+    <body>
+        <p>Disclaimer: 本工具只提供转换功能，并不提供具体的订阅，节点等信息</p><br />
+        <p>关于隐私问题: 程序不记录你的订阅地址和输出结果，但是Vercel，Heroku可能会知道通信内容，我也没兴趣看你订阅。</p><br />
+        <p>如果返回空结果，请检查参数；请不要频繁访问，可能导致机场封禁转换器从而无法使用</p>
+        <p>仅测试过 trojan 代理，其他代理未测试，欢迎反馈</p><br />
+        <input id="sub" placeholder="Clash 订阅地址" /><input id="extraOpt" placeholder="附加参数，比如allowInsecure=1&xxxxx" /><input type="checkbox" id="direct" checked="checked">中国大陆直连</input>
+        <button id="btn">生成订阅转换链接</button><br />
+        <p id="output"></p>
+        <script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.1/base64.min.js"></script>
+        <script>
+            document.getElementById("btn").onclick = (event) => {
+                var subUrl = document.getElementById("sub").value
+                var extraOpts = document.getElementById("extraOpt").value
+                var checked = document.getElementById("direct").checked
+                var host
+                if(checked){
+                    host="https://clashsb.vercel.app/subconv/"
+                }else{
+                    host="https://subconverter.herokuapp.com/subconv"
+                }
+                if(extraOpts==""){
+                    extraOpts="nothing=1"
+                }
+                var result = host+Base64.encodeURI(subUrl)+"/"+Base64.encodeURI(extraOpts)
+
+                document.getElementById("output").textContent = result
+            }
+        </script>
+    </body>
+</html>
